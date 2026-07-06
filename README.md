@@ -10,7 +10,7 @@ Este análisis utiliza un dataset de 20,000 registros de ventas de una distribui
 
 A diferencia de un dataset con un problema ya definido, aquí el reto inicial fue **construir el marco de investigación desde cero**: elegir un tema con impacto real de negocio, plantear una pregunta central medible, y descomponerla en sub-preguntas que se pudieran responder con los datos disponibles.
 
-> 📄 El proceso de extracción y limpieza de datos (valores nulos, formatos, columnas calculadas, decisiones descartadas) está documentado por separado en [`documentacion_limpieza_datos.md`](./documentacion_limpieza_datos.md), para no saturar este análisis con el detalle técnico previo.
+> 📄 El proceso de extracción y limpieza de datos (valores nulos, formatos, columnas calculadas, decisiones descartadas) está documentado por separado en (documentación de limpieza), para no saturar este análisis con el detalle técnico previo.
 
 ---
 
