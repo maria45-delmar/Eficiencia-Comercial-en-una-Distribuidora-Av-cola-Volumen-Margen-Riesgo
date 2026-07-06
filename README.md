@@ -1,0 +1,124 @@
+# Eficiencia Comercial en una Distribuidora Avícola: Volumen × Margen × Riesgo
+
+**Análisis de 20,000 registros de ventas — 5 provincias, 2024-2025**
+
+---
+
+## Contexto
+
+Este análisis utiliza un dataset de 20,000 registros de ventas de una distribuidora avícola con operaciones en 5 provincias, generado por THAH para practicar con contexto de negocio real de LATAM. El dataset incluye pedidos, productos, canales de distribución, vendedores, clientes y métricas de venta en bolivianos (Bs), cubriendo los años 2024 y 2025 completos.
+
+A diferencia de un dataset con un problema ya definido, aquí el reto inicial fue **construir el marco de investigación desde cero**: elegir un tema con impacto real de negocio, plantear una pregunta central medible, y descomponerla en sub-preguntas que se pudieran responder con los datos disponibles.
+
+> 📄 El proceso de extracción y limpieza de datos (valores nulos, formatos, columnas calculadas, decisiones descartadas) está documentado por separado en [`documentacion_limpieza_datos.md`](./documentacion_limpieza_datos.md), para no saturar este análisis con el detalle técnico previo.
+
+---
+
+## Tema central
+
+**Eficiencia comercial: volumen × margen × riesgo**
+
+## Pregunta central
+
+> ¿Dónde se concentra el valor real del negocio y dónde hay desalineación esfuerzo-retorno, y cómo evolucionó esa desalineación entre 2024 y 2025?
+
+## Sub-preguntas de investigación
+
+| # | Corte | Pregunta |
+|---|---|---|
+| 1 | Geográfico-comercial (canal × provincia) | ¿Qué combinaciones generan más volumen con mayor margen relativo, y se mantuvieron consistentes entre 2024 y 2025? |
+| 2 | Fuerza de ventas (vendedor) | Normalizando por cartera, ¿qué vendedores generan más valor por cliente con menos señales de riesgo, de forma sostenida? |
+| 3 | Producto (categoría/línea) | ¿Qué líneas sostienen el volumen de forma sana y cuáles dependen cada vez más del descuento para venderse? |
+| 4 | Temporal (estacionalidad + tendencia) | ¿Hay patrones estacionales reales? ¿El crecimiento interanual es parejo o está concentrado en pocas zonas? |
+
+Cada sub-pregunta corta la misma pregunta central desde un ángulo distinto — lugar, gente, producto y tiempo — en vez de ser temas sueltos.
+
+---
+
+## Sub-pregunta 1 — Canal × Provincia
+
+**¿Qué combinaciones generan más volumen con mayor margen relativo, y se mantuvieron consistentes entre 2024 y 2025?**
+
+![Matriz de cuadrantes Canal x Provincia](./images/sub1_cuadrantes_canal_provincia.png)
+
+A nivel canal-provincia, el negocio se muestra bastante equilibrado: las diferencias de volumen y descuento entre combinaciones son pequeñas en términos absolutos. Aun así, cruzando volumen (BS) y margen relativo (% de descuento) contra las medianas de cada año, aparecen patrones claros.
+
+**Lo que fue bien:** solo **Supermercados-Este** se mantuvo como combinación "Estrella" (alto volumen + bajo descuento) en **ambos años** — de 1.255.286 a 1.349.520 Bs (+7,5%), bajando su descuento de 7,46% a 7,15%. Es el único caso de éxito sostenido, no puntual.
+
+**La recuperación más fuerte:** Tiendas Especializadas-Este pasó de ser la peor combinación de 2024 (menor BS, 1.059.388, con 7,79% de descuento) a una de las mejores en 2025 (1.346.284 Bs, +27,1%, con descuento bajando a 7,45%). Esta única mejora explica cerca de la mitad de todo el crecimiento del negocio en el año.
+
+**La alerta principal:** Micromercados-Oeste era la mejor combinación en 2024 y cayó a zona de riesgo en 2025 (-8,6% en BS, +0,59 puntos de descuento). Además, **3 de las 5 provincias del canal Micromercados** (Norte, Oeste, Sur) terminaron 2025 en zona de riesgo — descuento por encima de la mediana sin el volumen que lo justifique, representando un estimado de 6.300 Bs en descuento no compensado con resultado.
+
+**Advertencia:** la mayoría de las combinaciones "estrella" de 2024 no se sostuvieron en 2025 — el buen desempeño en este negocio tiende a ser puntual, no estructural.
+
+---
+
+## Sub-pregunta 2 — Fuerza de Ventas
+
+**Normalizando por cartera, ¿qué vendedores generan más valor por cliente con menos riesgo, de forma sostenida?**
+
+![Ranking de vendedores por valor por cliente](./images/sub2_ranking_vendedores.png)
+
+Normalizando por tamaño de cartera, el Valor por Cliente entre los 30 vendedores varía entre 4.201,81 y 4.986,85 Bs — una dispersión de 18,7%, notablemente mayor que la vista entre canal-provincia. **El nivel de vendedor sí concentra diferencias reales de eficiencia.**
+
+**Lo que fue bien:** **VENDEDOR_005** es el único caso que combina alto valor por cliente con bajo riesgo en ambas señales (%PDV no-activo y % descuento atípico, ambos por debajo de la mediana), y uno de solo 2 vendedores que se mantuvo en el Top 10 en ambos años.
+
+**La alerta más fuerte:** **VENDEDOR_026** lidera el ranking combinado, pero cayó del puesto #1 (2024) al #11 (2025) — no sostenible. Más relevante: **VENDEDOR_008**, segundo en el ranking combinado, tiene el **%BS en PDV no-activo más alto de los 30 vendedores (73,2%)**, y también se desplomó del puesto #2 al #22 entre años — su buen número histórico pudo estar apoyado en una cartera de mayor riesgo. **VENDEDOR_010** muestra la tasa de descuento atípico más alta (13,0% vs. mediana 9,9%).
+
+**Sostenibilidad:** solo 2 de 30 vendedores (6,7%) mantuvieron un desempeño Top 10 en ambos años — el mismo patrón de inestabilidad que en la Sub-pregunta 1.
+
+**Limitación de datos documentada:** no fue posible analizar por "equipo" (GESTOR_VENTAS/JEFE_VENTAS), porque cada uno de los 30 vendedores aparece registrado bajo los 10 gestores — la jerarquía no es estable, se asigna por transacción y no por persona. Además, el 66,7% del BS total del negocio corresponde a PDV hoy inactivo/suspendido de forma pareja entre casi todos los vendedores, lo que sugiere que `ESTADO_PDV` refleja el estado *actual* del cliente y no su estado al momento de la venta — por eso la señal de riesgo se interpreta de forma relativa, no como alerta absoluta de fraude.
+
+---
+
+## Sub-pregunta 3 — Producto (Categoría/Línea)
+
+**¿Qué líneas sostienen el volumen de forma sana y cuáles dependen cada vez más del descuento?**
+
+![Dependencia de descuento por línea de producto](./images/sub3_dependencia_descuento_lineas.png)
+
+A nivel de categoría el negocio está muy equilibrado (19,3%-20,5% de participación cada una, descuento entre 7,41%-7,66%) — igual que a nivel canal-provincia, la historia real está un nivel más abajo, en las 14 líneas de producto.
+
+**Lo que crece de forma sana:** **Pierna** es el único caso perfecto — creció +3,5% en BS mientras bajaba su descuento 0,15 puntos. **Pechuga** (+15,8%, la de mayor crecimiento), **Chorizo** (+11,6%) y **Muslo** (+8,1%) crecieron dando apenas más descuento — demanda real, no descuento forzado.
+
+**Dependencia de descuento en aumento:** 8 de 14 líneas crecieron en 2025 apoyándose en mayor descuento. De estas, **Jamón, Apanado y Nuggets** preocupan más: el descuento subió considerablemente (+0,13 a +0,24 puntos) para un crecimiento modesto (0,98%-4,67%) — cada vez regalan más margen por cada punto adicional de venta.
+
+**La alerta más fuerte:** **Ala** es la única línea que aumentó su descuento (+0,16 puntos) y **aun así perdió volumen** (-3,4%). El descuento no está funcionando — el problema es estructural, no de precio.
+
+**Caída sin relación al precio:** **Huevo Rojo** tuvo la caída más fuerte del portafolio (-8,3% en BS) mientras **bajaba** su descuento — perdió ventas sin que el precio sea la causa. Milanesa y Salchicha muestran el mismo patrón. Subir el descuento aquí no resolvería nada.
+
+---
+
+## Sub-pregunta 4 — Estacionalidad y Tendencia
+
+**¿Hay patrones estacionales reales? ¿El crecimiento interanual es parejo o está concentrado?**
+
+![Estacionalidad y tendencia interanual](./images/sub4_estacionalidad_tendencia.png)
+
+**Intra-anual:** no hay un patrón estructural real. La correlación entre el patrón mensual de 2024 y 2025 es de **-0,23** (prácticamente nula) — el mes que fue alto en un año no tiende a serlo en el otro. La variación mes a mes dentro de cada año es pequeña (coeficiente de variación de 3,7%-4,6%). Los "picos" observados (Junio -10,1%, Enero +12,4%) son fluctuaciones puntuales, no estacionalidad de negocio.
+
+**Inter-anual — el hallazgo más importante de toda la investigación:** el negocio creció 2,29% en BS (+572.884 Bs) con margen prácticamente estable (+0,05 puntos de descuento). Hasta aquí, el resultado agregado se ve saludable.
+
+Pero **ese crecimiento no es parejo — está fuertemente concentrado**: la **provincia ESTE explica el 85,9% de todo el crecimiento del negocio** (+491.857 de los +572.884 Bs totales). Mientras tanto, **3 de las 5 provincias en realidad no crecieron**: Centro cayó -1,2%, Oeste cayó -0,6%, Norte se mantuvo plano (-0,01%). El resultado positivo de la empresa depende, en la práctica, de una sola zona.
+
+Por canal la historia es más sana — las 4 canales crecieron, sin ninguno en retroceso, aunque Supermercados (+5,5%) explica el 59% del crecimiento total por sí solo.
+
+---
+
+## Limitaciones del análisis
+
+1. **Jerarquía de fuerza de ventas no estable**: `GESTOR_VENTAS` y `JEFE_VENTAS` se asignan por transacción y no por vendedor, lo que impidió un análisis confiable de desempeño por equipo.
+2. **`ESTADO_PDV` parece reflejar el estado actual del cliente**, no su estado histórico al momento de cada venta — la señal de riesgo asociada se interpreta de forma relativa (comparando entidades entre sí) y no como una alerta absoluta.
+3. **Ausencia de patrón estacional claro** limita el uso de este dataset para practicar modelos de pronóstico basados en estacionalidad — el fenómeno simplemente no está presente en los datos.
+4. El análisis se basa en promedios y medianas por combinación; combinaciones con muestras pequeñas (aunque no se detectaron aquí, con ~450-550 pedidos por vendedor y ~900-1.000 por combinación canal-provincia) podrían requerir mayor cautela en otros contextos.
+
+## Recomendaciones
+
+1. **Investigar y replicar** los casos de éxito sostenido identificados: Supermercados-Este (Sub-1), VENDEDOR_005 (Sub-2), y las líneas Pierna/Pechuga/Chorizo (Sub-3) — todos comparten el patrón de crecer sin depender de mayor descuento.
+2. **Revisar con prioridad la política de descuento** en el canal Micromercados (Norte, Oeste, Sur) y en las líneas Jamón, Apanado y Nuggets, donde el descuento sube sin el retorno proporcional en ventas.
+3. **Detener el descuento creciente en la línea Ala** e investigar causa raíz (calidad, competencia, canal) — el precio no es la palanca correcta ahí.
+4. **Auditar el crecimiento de la provincia Este** para entender si es replicable en Centro, Norte y Oeste — el resultado agregado del negocio depende críticamente de esta única zona.
+5. **No basar decisiones de inversión o incentivos en el desempeño de un solo año**: en los 4 cortes analizados, el buen desempeño resultó mayormente puntual, no estructural.
+6. **Corregir en el sistema de origen** la asignación de GESTOR_VENTAS/JEFE_VENTAS y aclarar si ESTADO_PDV debe reflejar el estado histórico o actual del cliente, para habilitar análisis más precisos a futuro.
+
+---
