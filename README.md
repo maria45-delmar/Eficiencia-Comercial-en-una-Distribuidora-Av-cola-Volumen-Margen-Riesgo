@@ -39,7 +39,13 @@ Cada sub-pregunta corta la misma pregunta central desde un ángulo distinto — 
 
 **¿Qué combinaciones generan más volumen con mayor margen relativo, y se mantuvieron consistentes entre 2024 y 2025?**
 
-![Matriz de cuadrantes Canal x Provincia](./images/sub1_cuadrantes_canal_provincia.png)
+<img width="1821" height="501" alt="image" src="https://github.com/user-attachments/assets/32f35801-68b6-45e2-bf75-f83f8b73f02c" />
+
+
+<img width="1552" height="676" alt="image" src="https://github.com/user-attachments/assets/83b5a913-5a6e-48ad-8062-b4a393ae38ee" />
+
+
+
 
 A nivel canal-provincia, el negocio se muestra bastante equilibrado: las diferencias de volumen y descuento entre combinaciones son pequeñas en términos absolutos. Aun así, cruzando volumen (BS) y margen relativo (% de descuento) contra las medianas de cada año, aparecen patrones claros.
 
@@ -57,7 +63,8 @@ A nivel canal-provincia, el negocio se muestra bastante equilibrado: las diferen
 
 **Normalizando por cartera, ¿qué vendedores generan más valor por cliente con menos riesgo, de forma sostenida?**
 
-![Ranking de vendedores por valor por cliente](./images/sub2_ranking_vendedores.png)
+<img width="869" height="865" alt="image" src="https://github.com/user-attachments/assets/265492fd-9af7-4e3e-b699-4c6a6ecc7067" />
+
 
 Normalizando por tamaño de cartera, el Valor por Cliente entre los 30 vendedores varía entre 4.201,81 y 4.986,85 Bs — una dispersión de 18,7%, notablemente mayor que la vista entre canal-provincia. **El nivel de vendedor sí concentra diferencias reales de eficiencia.**
 
@@ -75,7 +82,8 @@ Normalizando por tamaño de cartera, el Valor por Cliente entre los 30 vendedore
 
 **¿Qué líneas sostienen el volumen de forma sana y cuáles dependen cada vez más del descuento?**
 
-![Dependencia de descuento por línea de producto](./images/sub3_dependencia_descuento_lineas.png)
+<img width="1247" height="317" alt="image" src="https://github.com/user-attachments/assets/49da4296-6f01-4db9-ae3f-b20f1316b71a" />
+
 
 A nivel de categoría el negocio está muy equilibrado (19,3%-20,5% de participación cada una, descuento entre 7,41%-7,66%) — igual que a nivel canal-provincia, la historia real está un nivel más abajo, en las 14 líneas de producto.
 
@@ -93,7 +101,7 @@ A nivel de categoría el negocio está muy equilibrado (19,3%-20,5% de participa
 
 **¿Hay patrones estacionales reales? ¿El crecimiento interanual es parejo o está concentrado?**
 
-![Estacionalidad y tendencia interanual](./images/sub4_estacionalidad_tendencia.png)
+<img width="867" height="332" alt="image" src="https://github.com/user-attachments/assets/572ed6c0-540a-4d3e-afe5-c5c00cc79c63" />
 
 **Intra-anual:** no hay un patrón estructural real. La correlación entre el patrón mensual de 2024 y 2025 es de **-0,23** (prácticamente nula) — el mes que fue alto en un año no tiende a serlo en el otro. La variación mes a mes dentro de cada año es pequeña (coeficiente de variación de 3,7%-4,6%). Los "picos" observados (Junio -10,1%, Enero +12,4%) son fluctuaciones puntuales, no estacionalidad de negocio.
 
